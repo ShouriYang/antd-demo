@@ -9,8 +9,13 @@ const { Search } = Input;
 @observer
 class Product extends Component {
   state = {};
+  componentDidMount() {
+    console.log(store.userId, store.createPerson);
+  }
   onSearch = value => {
-    store.searchProduct(value);
+    store.searchValue = value;
+    console.log(store.searchValue);
+    store.searchProduct();
   };
   render() {
     return (
