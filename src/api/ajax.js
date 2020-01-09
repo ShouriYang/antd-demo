@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { message } from 'antd'
-import { httpInterceptor, loginInterceptor } from './httpInterceptor'
+import { httpInterceptor } from './httpInterceptor'
 //函数的返回值是一个promise的对象
 export default function ajax(url, data = {}, type = 'GET') {
   //http request 拦截器 添加请求拦截
