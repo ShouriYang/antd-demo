@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Modal, Button, Icon } from 'antd';
 import PropTypes from 'prop-types';
-import CreateFrom from './productForm';
+import CreateFrom from './components/productForm';
 import store from '../../mobx/productStore';
 import './css/productCreate.less';
 @observer
