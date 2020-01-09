@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Tag } from 'antd';
 import './index.less';
 class Header extends Component {
   state = {};
@@ -30,6 +31,13 @@ class Header extends Component {
   pushBack = () => {
     this.props.history.goBack();
   };
+  logout = () => {
+    console.log(localStorage.token);
+    localStorage.removeItem('token');
+    console.log(localStorage.token);
+    this.props.history.replace('/login');
+  };
+
   render() {
     const title = this.getTitle();
     const pathArr = this.props.location.pathname.split('/');
@@ -37,8 +45,13 @@ class Header extends Component {
     return (
       <div className="header">
         <div className="header-top">
-          <span>欢迎，admin</span>
-          <a href="">退出</a>
+          <span>
+            欢迎，{' '}
+            <Tag color="#108ee9" style={{ fontSize: '0.9rem' }}>
+              {localStorage.userName}
+            </Tag>
+          </span>
+          <a onClick={this.logout}>注销</a>
         </div>
         <div className="header-bottom">
           <div className="header-bottom-left">{title}</div>
