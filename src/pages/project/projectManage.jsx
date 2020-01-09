@@ -9,8 +9,12 @@ const { Search } = Input;
 @observer
 class ProjectManage extends Component {
   state = {};
+  componentDidMount() {
+    store.searchValue = '';
+  }
   onSearch = async value => {
-    await store.searchProject(value);
+    store.searchValue = value;
+    await store.searchProject();
   };
   render() {
     return (

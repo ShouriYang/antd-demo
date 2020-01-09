@@ -17,7 +17,7 @@ class Content extends Component {
     this.getProject();
   }
   getProject = async () => {
-    await store.getProject(store.productId);
+    await store.getProject();
     console.log(store.list);
   };
   delete = id => {
@@ -28,7 +28,11 @@ class Content extends Component {
       cancelText: '否',
       async onOk() {
         await store.deleteProject(id);
-        await store.getProject(store.productId);
+        if (store.searchValue === '') {
+          await store.getProject();
+        } else {
+          await store.searchProject();
+        }
         console.log('ok');
       },
       onCancel() {

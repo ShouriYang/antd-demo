@@ -27,7 +27,11 @@ class Create extends Component {
         console.log(store.productId, values);
         const code = await store.addProject(values);
         if (code === 700) {
-          await store.getProject();
+          if (store.searchValue === '') {
+            await store.getProject();
+          } else {
+            await store.searchProject();
+          }
           formData.resetFields();
           this.setState({ visible: false });
         } else {

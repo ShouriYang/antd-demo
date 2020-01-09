@@ -32,7 +32,11 @@ class Edit extends Component {
           values
         );
         if (code === 800) {
-          await store.getProject();
+          if (store.searchValue === '') {
+            await store.getProject();
+          } else {
+            await store.searchProject();
+          }
           formData.resetFields();
           this.setState({ visible: false });
         } else {
