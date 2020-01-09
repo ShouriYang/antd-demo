@@ -1,19 +1,39 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { observer } from 'mobx-react';
 import './login.less';
+import Register from './components/register';
+import ForgetPwd from './components/forgetPwd';
 import logo from '../../assets/images/logo.png';
-import { Form, Icon, Input, Button } from 'antd';
+import { Form, Icon, Input, Button, message } from 'antd';
+import userStore from '../../mobx/userStore';
+import productStore from '../../mobx/productStore';
+@observer
 //登录的路由组件
 class Login extends Component {
   state = {};
   static propTypes = {
-    form: PropTypes.any
+    form: PropTypes.any,
+    history: PropTypes.any
   };
   handleSubmit = event => {
     event.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields(async (err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        const res = await userStore.login(values);
+        if (res.code === 1) {
+          console.log(res);
+          localStorage.token = res.token;
+          localStorage.userName = res.data.userName;
+          localStorage.userId = res.data.userId;
+          productStore.userId = res.data.userId;
+          productStore.createPerson = res.data.userName;
+          console.log(res.data);
+          message.success(res.message);
+          this.props.history.replace('/product');
+        } else {
+          message.error(res.msg);
+        }
       }
     });
   };
@@ -23,13 +43,13 @@ class Login extends Component {
       <div className="login">
         <header className="login-header">
           <img src={logo} alt="logo" />
-          <h1>错误监控系统</h1>
+          <h1>source-map</h1>
         </header>
         <section className="login-content">
           <h2>用户登录</h2>
           <Form onSubmit={this.handleSubmit} className="login-form">
             <Form.Item>
-              {getFieldDecorator('username', {
+              {getFieldDecorator('userName', {
                 rules: [
                   {
                     required: true,
@@ -48,7 +68,7 @@ class Login extends Component {
                   prefix={
                     <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
                   }
-                  placeholder="Username"
+                  placeholder="用户名"
                 />
               )}
             </Form.Item>
@@ -61,7 +81,7 @@ class Login extends Component {
                     <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
                   }
                   type="password"
-                  placeholder="Password"
+                  placeholder="密码"
                 />
               )}
             </Form.Item>
@@ -75,9 +95,10 @@ class Login extends Component {
               </Button>
             </Form.Item>
             <Form.Item>
-              <a className="login-form-forgot" href="">
-                忘记密码
-              </a>
+              <div className="login-form-bottom">
+                <Register />
+                <ForgetPwd />
+              </div>
             </Form.Item>
           </Form>
         </section>
