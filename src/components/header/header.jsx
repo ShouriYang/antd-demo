@@ -57,7 +57,9 @@ class Header extends Component {
           <div className="header-bottom-left">{title}</div>
           <div className="header-bottom-right">
             <a onClick={this.pushBack}>
-              {pathArr[pathArr.length - 1] === 'product' ? '' : '返回'}
+              {pathArr[pathArr.length - 1] === 'product' || 'home'
+                ? ''
+                : '返回'}
             </a>
           </div>
         </div>
