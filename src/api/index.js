@@ -1,6 +1,10 @@
 import ajax from './ajax'
 //指定服务器根地址
-const BASE = ' http://122.51.175.158:7001'
+const BASE = 'http://122.51.175.158:7001'
+// const local = 'http://127.0.0.1:7001'
+// export const reqUser = () => ajax(local + '/user', {})
+export const register = (user) => ajax(BASE + '/register', user, 'POST')
+export const login = (user) => ajax(BASE + '/login', user, 'POST')
 export const reqProduct = (userId, page, pageSize) => ajax(BASE + '/product', { userId, page, pageSize })
 export const searchProduct = (userId, target, page, pageSize) => ajax(BASE + '/product/search', { userId, target, page, pageSize })
 export const addProduct = (userId, createPerson, product) => ajax(BASE + `/product?userId=${userId}&createPerson=${createPerson}`, product, 'POST')
