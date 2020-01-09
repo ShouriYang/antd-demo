@@ -8,8 +8,9 @@ import {
 } from '../api/index';
 import { addMessage, editMessage, deleteMessage } from '../api/message';
 class Store {
-  @observable userId = '123456';
-  @observable createPerson = '杨啸锐'
+  @observable userId = localStorage.userId;
+  @observable createPerson = localStorage.userName;
+  @observable searchValue;
   @observable list = [];
   @observable page = 1;
   @observable pageSize = 9;
@@ -19,15 +20,16 @@ class Store {
   // }
   @action getProduct = async () => {
     console.log(this.page, this.pageSize);
+
     const res = await reqProduct(this.userId, this.page, this.pageSize);
     this.list = res.data.list;
     this.total = res.data.total;
-    console.log(this.list);
+    // console.log(this.list);
     console.log(this.total);
   };
-  @action searchProduct = async target => {
+  @action searchProduct = async () => {
     // console.log(this.page, this.pageSize);
-    const res = await searchProduct(this.userId, target, this.page, this.pageSize);
+    const res = await searchProduct(this.userId, this.searchValue, this.page, this.pageSize);
     this.list = res.data.list;
     this.total = res.data.total;
     // console.log(this.list);
@@ -36,6 +38,7 @@ class Store {
   @action addProduct = async product => {
     // product.userId = this.userId;
     // console.log(product)
+    console.log(this.userId, this.createPerson)
     const res = await addProduct(this.userId, this.createPerson, product);
     addMessage(res.code, res.message);
     return res.code;

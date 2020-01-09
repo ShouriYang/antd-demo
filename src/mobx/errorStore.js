@@ -16,7 +16,7 @@ class Store {
     // console.log(this.versionId);
     this.list = res.data.list;
     this.total = res.data.total
-    // console.log(res);
+    console.log(res);
     // console.log(this.list[);
   };
   @action dayError = async () => {
