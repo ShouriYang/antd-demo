@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Layout } from 'antd';
 import LeftNav from '../../components/left-nav/left-nav';
+import PropTypes from 'prop-types';
 import menuList from '../../config/menuConfig';
 import Header from '../../components/header/header';
 import Home from '../../pages/home/home';
@@ -10,7 +11,15 @@ const { Sider, Content } = Layout;
 
 //管理的路由组件
 class Admin extends Component {
+  static propTypes = {
+    history: PropTypes.any
+  };
   state = {};
+  componentDidMount() {
+    if (!localStorage.token) {
+      this.props.history.replace('/login');
+    }
+  }
   render() {
     return (
       <div>
