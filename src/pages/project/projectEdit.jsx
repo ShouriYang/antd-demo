@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Modal, Button, Icon } from 'antd';
 import PropTypes from 'prop-types';
-import CreateFrom from './projectForm';
+import CreateFrom from './components/projectForm';
 import store from '../../mobx/projectStore';
 @observer
 class Edit extends Component {

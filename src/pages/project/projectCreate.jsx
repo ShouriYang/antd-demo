@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Modal, Button, Icon } from 'antd';
 import PropTypes from 'prop-types';
-import CreateFrom from './projectForm';
+import CreateFrom from './components/projectForm';
 import store from '../../mobx/projectStore';
 @observer
 class Create extends Component {
@@ -24,7 +24,6 @@ class Create extends Component {
       if (!err) {
         // eslint-disable-next-line no-param-reassign
         values.projectApp = values.projectApp.label;
-
         console.log(store.productId, values);
         const code = await store.addProject(values);
         if (code === 700) {
