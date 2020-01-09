@@ -10,6 +10,7 @@ const { Search } = Input;
 class Product extends Component {
   state = {};
   componentDidMount() {
+    store.searchValue = '';
     console.log(store.userId, store.createPerson);
   }
   onSearch = value => {

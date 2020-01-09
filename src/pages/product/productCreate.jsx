@@ -29,9 +29,12 @@ class Create extends Component {
         // eslint-disable-next-line no-param-reassign
         const code = await store.addProduct(values);
         if (code === 700) {
+          console.log(store.searchValue);
           if (store.searchValue === '') {
+            console.log('全部');
             await store.getProduct();
           } else {
+            console.log('搜索');
             await store.searchProduct();
           }
           formData.resetFields();
