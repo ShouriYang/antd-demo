@@ -23,17 +23,17 @@ class Create extends Component {
     const formData = this.getFormValue;
     formData.validateFields(async (err, values) => {
       if (!err) {
-        // console.log(values);
         // eslint-disable-next-line no-param-reassign
         values.productCategory = values.productCategory.label;
         //添加创建人字段
         // eslint-disable-next-line no-param-reassign
-        // values.createPerson = '杨啸锐';
-        // console.log(values);
         const code = await store.addProduct(values);
-        // console.log(code);
         if (code === 700) {
-          await store.getProduct();
+          if (store.searchValue === '') {
+            await store.getProduct();
+          } else {
+            await store.searchProduct();
+          }
           formData.resetFields();
           this.setState({ visible: false });
         } else {

@@ -41,7 +41,11 @@ class Edit extends Component {
           values
         );
         if (code === 800) {
-          await store.getProduct();
+          if (store.searchValue === '') {
+            await store.getProduct();
+          } else {
+            await store.searchProduct();
+          }
           formData.resetFields();
           this.setState({ visible: false });
         } else {
