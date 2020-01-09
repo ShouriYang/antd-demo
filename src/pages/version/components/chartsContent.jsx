@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 // import { observer } from 'mobx-react';
-import { DatePicker } from 'antd';
+import { DatePicker, Empty } from 'antd';
 import { Chart, Geom, Axis, Tooltip } from 'bizcharts';
 import store from '../../../mobx/errorStore';
 import { observer } from 'mobx-react';
@@ -58,20 +58,24 @@ class ChartsContent extends Component {
     };
     return (
       <div>
-        <div className="charts-header">
+        <div className="charts-header" style={{ margin: '1rem 0 0 1rem' }}>
           <span>
             选择日期:
             <DatePicker onChange={this.onChange} />
           </span>
         </div>
-        <div className="charts-middle" style={{ textAlign: 'center' }}>
-          <Chart forceFit={true} height={500} data={data} scale={cols}>
-            <Axis name="time" title />
-            <Axis name="err" title />
-            <Tooltip showTitle={false} />
-            <Geom type="interval" position="time*err" color="time" />
-          </Chart>
-        </div>
+        {data.length === 0 ? (
+          <Empty imageStyle={{ height: '25rem' }} />
+        ) : (
+          <div className="charts-middle" style={{ textAlign: 'center' }}>
+            <Chart forceFit={true} height={500} data={data} scale={cols}>
+              <Axis name="time" title />
+              <Axis name="err" title />
+              <Tooltip showTitle={false} />
+              <Geom type="interval" position="time*err" color="time" />
+            </Chart>
+          </div>
+        )}
       </div>
     );
   }

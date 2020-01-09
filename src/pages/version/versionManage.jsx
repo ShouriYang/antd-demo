@@ -7,8 +7,9 @@ import './css/index.less';
 @observer
 class VersionManage extends Component {
   state = {};
-  pageChange = current => {
+  pageChange = async current => {
     store.page = current;
+    await store.getVersion();
   };
   render() {
     return (
