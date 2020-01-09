@@ -15,16 +15,14 @@ class Store {
   @observable pageSize = 7;
   @observable total;
   @observable list = [];
+  @observable searchValue;
   @action getProject = async () => {
-    console.log(this.page, this.pageSize)
     const res = await reqProject(this.productId, this.page, this.pageSize);
     this.list = res.data.list;
     this.total = res.data.total;
-    // console.log(this.list)
-    // console.log(this.total);
   };
-  @action searchProject = async (target) => {
-    const res = await searchProject(this.productId, target, this.page, this.pageSize)
+  @action searchProject = async () => {
+    const res = await searchProject(this.productId, this.searchValue, this.page, this.pageSize)
     this.list = res.data.list;
     this.total = res.data.total;
   }
@@ -35,7 +33,6 @@ class Store {
   };
   @action editProject = async (id, Project) => {
     const res = await editProject(id, Project);
-    // console.log(Project)
     editMessage(res.code, res.message);
     return res.code;
   };
