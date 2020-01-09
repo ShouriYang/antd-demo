@@ -52,7 +52,6 @@ class LeftNav extends Component {
       //pre是上次统计的结果
       //向pre中添加<menu.item>/<submenu.item>
       if (!item.children) {
-        // console.log(item.key);
         pre.push(
           <Menu.Item key={item.key}>
             <Link to={item.key}>
@@ -83,7 +82,7 @@ class LeftNav extends Component {
     const path = this.props.location.pathname;
     return (
       <div className="left-nav">
-        <Link to="/admin/product" className="left-nav-header">
+        <Link to="/product" className="left-nav-header">
           <img src={logo} alt="logo" />
           <h1>source-map</h1>
         </Link>
