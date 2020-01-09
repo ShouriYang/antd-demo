@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import { Empty } from 'antd';
 /* 首页路由*/
 class Home extends Component {
   state = {};
   render() {
-    return <div>home</div>;
+    return (
+      <div>
+        <Empty imageStyle={{ height: '25rem' }} />
+      </div>
+    );
   }
 }
 
